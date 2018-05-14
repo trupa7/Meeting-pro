@@ -1,0 +1,58 @@
+<a href="/meeting/create">New Meeting</a>
+<hr>
+<input type="text" [(ngModel)]="term">
+<hr>
+<button id="create" (click)="convert()">Create file</button> 
+
+<div class="container">
+                <div class="row">
+                  <div class="col-md-6">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">
+                                  Past Meetings</h3>
+                          </div>
+                          <div class="pre-scrollable">
+                                        <ul class="list-group"  *ngFor="let meeting of meetings | filterBy: userFilter  | filter: term" >
+
+                                                <div *ngIf="(meeting.from_date | date :'yyyy-MM-dd HH:mm a z')  <= (today| date :'yyyy-MM-dd HH:mm a z') ">
+                                                        
+                                                        <li><b> {{meeting.m_name}}</b>  </li>
+                                                        <li>{{meeting.from_date  | date :'short'}}</li>
+                                                        <li><button class="link" (click)="update(meeting.created_by)">{{meeting.created_by  }}</button> | {{meeting.m_tags}}</li>
+                                                     
+                                                        <div *ngIf="meeting.created_by==userFilter.m_participant">        
+                                                                <button class="btn btn-danger" (click)="deleteMeeting(meeting._id)"><span class="glyphicon glyphicon-remove"></span></button>
+                                                        </div>
+                                                </div>
+                                        </ul>
+                        </div>
+                      </div>
+                  </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Future Meetings</h3>
+                            </div>
+                            <div class="pre-scrollable">
+                                        <ul class="list-group"  *ngFor="let meeting of meetings | filterBy: userFilter  |filter: term" >
+
+                                                <div *ngIf="(meeting.from_date | date :'yyyy-MM-dd HH:mm a z')  > (today| date :'yyyy-MM-dd HH:mm a z') ">
+                                                        <li><h3 class="mb-1" > {{meeting.m_name}}</h3>  </li>
+                                                        <li>{{meeting.from_date  | date :'short'}}</li>
+                                                        <li><button class="link" (click)="update(meeting.created_by)">{{meeting.created_by}}</button> | {{meeting.m_tags}} </li>
+                                                        <div *ngIf="meeting.created_by==userFilter.m_participant">        
+                                                                <button class="btn btn-danger" (click)="deleteMeeting(meeting._id)"><span class="glyphicon glyphicon-remove"></span></button>
+                                                        </div>
+                                                </div>
+                                        </ul>
+                          </div>
+                        </div>
+                    </div>
+
+                  
+                </div>
+</div>
+            

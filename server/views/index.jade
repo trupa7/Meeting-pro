@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Meeting King Authentication 
+  .container
+    if (!user)
+      a(href="/login")
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Login
+      a(href="/signup")
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Signup
+    if (user)
+      p You are currently logged in.
+      
